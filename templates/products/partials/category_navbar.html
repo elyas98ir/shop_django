@@ -1,0 +1,13 @@
+<li class="nav-item"><a class="nav_txt" href="#" class="nav-link">دسته‌بندی‌ها</a>
+    <ul class="dropdown-menu sub-menu">
+        {% for cat in category %}
+            {% if not cat.parent %}
+                <li><a class="nav_child_txt" href="{% url 'products:category_products' cat.slug %}" style="color: black !important;">{{ cat.name }}</a>
+                    {% if cat.children.all %}
+                        {% include 'products/partials/category_loop.html'%}
+                    {% endif %}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</li>

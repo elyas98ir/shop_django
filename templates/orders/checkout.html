@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block page_title %}بررسی سفارش{% endblock %}
+{% block site_title %}بررسی سفارش{% endblock %}
+
+{% block page_content %}
+<section class="checkout-area ptb-100">
+    <div class="container">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <div class="billing-details">
+                        <h3 class="title">جزئیات صورتحساب</h3>
+                        <div class="bar"></div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>نام گیرنده <span class="required">*</span></label>
+                                    {% if form.recipient_name.errors %}
+                                        {{ form.recipient_name|add_class:"form-control text-center is-invalid"}}
+                                        <small class="invalid-feedback">{{ form.recipient_name.errors }}</small>
+                                    {% else %}
+                                        {{ form.recipient_name|add_class:"form-control text-center"}}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>شماره تلفن<span class="required">*</span></label>
+                                    {% if form.recipient_phone_number.errors %}
+                                        {{ form.recipient_phone_number|add_class:"form-control text-center is-invalid"}}
+                                        <small class="invalid-feedback">{{ form.recipient_phone_number.errors }}</small>
+                                    {% else %}
+                                        {{ form.recipient_phone_number|add_class:"form-control text-center"}}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>آدرس کامل<span class="required">*</span></label>
+                                    {% if form.recipient_address.errors %}
+                                        {{ form.recipient_address|add_class:"form-control text-center is-invalid"}}
+                                        <small class="invalid-feedback">{{ form.recipient_address.errors }}</small>
+                                    {% else %}
+                                        {{ form.recipient_address|add_class:"form-control text-center"}}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="order-details">
+                        <h3 class="title">سفارش شما</h3>
+                        <div class="bar"></div>
+
+                        <div class="order-table table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">نام محصول</th>
+                                        <th scope="col">تعداد</th>
+                                        <th scope="col">قیمت</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% for item in cart %}
+                                    <tr>
+                                        <td class="product-name">
+                                            {{item.product.name}}
+                                        </td>
+                                        <td class="product-name text-center">
+                                            {{item.quantity}}
+                                        </td>
+                                        <td class="product-total text-center">
+                                            {{item.total_price}} تومان
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                    <tr>
+                                        <td class="total-price">
+                                            <span>مبلغ کل سفارش</span>
+                                        </td>
+                                        <td></td>
+                                        <td class="product-subtotal text-center">
+                                            <span class="subtotal-amount">{{total_price}} تومان</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="total-price">
+                                            <span>مقدار تخفیف</span>
+                                        </td>
+                                        <td></td>
+                                        <td class="product-subtotal text-center">
+                                            <span class="subtotal-amount">{{discount_price}} تومان</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="total-price">
+                                            <span>مبلغ قابل پرداخت</span>
+                                        </td>
+                                        <td></td>
+                                        <td class="product-subtotal text-center">
+                                            <span class="total-cost-price">{{total_cost}} تومان</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <input type="submit" value="پرداخت و ثبت سفارش" class="btn btn-primary order-btn">
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% if messages %}
+    {% for msg in messages %}
+        <div class="alert alert-{{ msg.tags }} alert-dismissible fade show" role="alert">
+            {{ msg }}
+            <a href="#" type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </a>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% for error in form.non_field_errors %}
+    {{error}}
+{% endfor %}

@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block page_title %}سبد خرید{% endblock %}
+{% block site_title %}سبد خرید{% endblock %}
+
+{% block extra_js %}
+<script>
+    change_quantity();
+    function change_quantity(){
+        var products_quantity = ''
+        var inputs=document.getElementsByClassName('quantity-input');
+        for (let index = 0; index < inputs.length; index++) {
+            products_quantity = products_quantity + inputs[index].value + ',';
+        }
+        document.getElementById('products_quantity').value = products_quantity;
+        console.log(products_quantity)
+    }
+
+    {% if coupon_code %}
+        document.getElementById('coupon_code').value = '{{coupon_code}}';
+    {% endif %}
+
+</script>
+{% endblock %}
+
+{% block page_content %}
+{% if cart %}
+<section class="cart-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="cart-table table-responsive">
+                    {% include 'inc/messages.html' %}
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">ردیف</th>
+                                <th scope="col">تصویر محصول</th>
+                                <th scope="col">نام محصول</th>
+                                <th scope="col">قیمت واحد</th>
+                                <th scope="col">تعداد</th>
+                                <th scope="col">قیمت کل</th>
+                                <th scope="col">پاک کردن</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for item in cart %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td class="product-thumbnail">
+                                    <a href="{% url 'products:products_detail' item.product.slug %}">
+                                        <img src="{{ item.product.image.url }}" alt="item">
+                                    </a>
+                                </td>
+
+                                <td class="product-name">
+                                    <a href="{% url 'products:products_detail' item.product.slug %}">{{ item.product.name }}</a>
+                                </td>
+
+                                <td class="product-price">
+                                    <span class="unit-amount">{{item.price}} تومان</span>
+                                </td>
+
+                                <td class="product-quantity">
+                                    {% comment %} {{item.quantity}} {% endcomment %}
+                                    <input type="number" onchange="change_quantity()" class="form-control quantity-input" min="1" max={{item.product.stock_quantity}} value="{{item.quantity}}">
+                                </td>
+
+                                <td class="product-subtotal">
+                                    <span class="subtotal-amount">{{item.total_price}} تومان</span>
+                                </td>
+
+                                <td class="product-remove">
+                                    <a href="{% url 'orders:cart_remove' item.product.id %}"><i class="icofont-ui-delete"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="cart-buttons">
+                    <div class="row h-100 justify-content-center align-items-center">
+                        <div class="col-lg-7 col-md-7">
+                            <div class="coupon-box">
+                                <form action="{% url 'orders:cart_coupon' %}" method="post" style="display:inline-flex;">
+                                    {% csrf_token %}
+                                    {{ form.code|add_class:"form-control text-center"|attr:"id:coupon_code"|attr:"placeholder:کد تخفیف"}}
+                                    <input class="btn btn-primary" type="submit" value="اعمال کردن کد تخفیف" style="margin-right:10px;">
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5 col-md-5 text-right">
+                            <form action="{% url 'orders:cart_update' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="quantity" id="products_quantity" value="">
+                                <input class="btn btn-primary" type="submit" value="به روز رسانی سبد خرید">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cart-totals">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <h3>مجموع سبد</h3>
+
+                            <ul>
+                                <li>جمع کل : <span>{{total_price}} تومان</span></li>
+                                <li>
+                                    {% if coupon_code and coupon_discount %}
+                                        مقدار تخفیف : ({{coupon_discount}} درصد تخفیف با کد {{coupon_code}})
+                                        <a href="{% url 'orders:cart_coupon_delete' %}" class="delete-coupon-code">حذف کد</a> 
+                                    {% else %}
+                                    مقدار تخفیف : 
+                                    {% endif %}
+                                    <span>{{discount_price}} تومان</span>
+                                </li>
+                                <li>مبلغ قابل پرداخت: <span>{{total_cost}} تومان</span></li>
+                            </ul>
+                            <a href="{% url 'orders:checkout' %}" class="btn btn-primary">تایید و ادامه</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% else %}
+<br><br>
+<h1 class="text-center">
+    سبد خرید شما خالی است
+</h1>
+{% endif %}
+{% endblock %}

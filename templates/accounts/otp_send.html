@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block page_title %}ورود به ناحیه کاربری{% endblock %}
+{% block site_title %}ورود به ناحیه کاربری{% endblock %}
+
+{% block page_content %}
+<section class="login-area ptb-100">
+    <div class="container">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-lg-6 col-md-12">
+                <div class="login-image">
+                    <img src="{% static 'crake/assets/img/marketing.png' %}" alt="image">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="login-form">
+                    <h3>خوش آمدید!</h3>
+                    <p>برای ورود به ناحیه کاربری شماره تلفن خود را وارد کنید.</p>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                {% if form.phone_number.errors %}
+                                    {{ form.phone_number|add_class:"form-control text-center is-invalid"|attr:"placeholder:شماره تلفن همراه"}}
+                                    <small class="invalid-feedback">{{ form.phone_number.errors }}</small>
+                                {% else %}
+                                    {{ form.phone_number|add_class:"form-control text-center"|attr:"placeholder:شماره تلفن همراه"}}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <button type="submit" class="btn btn-primary">ارسال کد تایید</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
