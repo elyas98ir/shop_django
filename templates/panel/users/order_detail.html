@@ -1,0 +1,71 @@
+{% extends 'panel/base.html' %}
+{% load humanize %}
+{% load panel_base_tags %}
+
+{% block panel_title %} جزئیات سفارش شماره {{order.id}} {% endblock %}
+{% block panel_content %}
+<div class="row">
+    <div class="col-md-6">
+        <strong>وضعیت سفارش:</strong>
+        {% if order.paid %}
+            <span class="badge badge-success">پرداخت شده</span>
+        {% else %}
+            <span class="badge badge-danger">پرداخت نشده</span>
+        {% endif %}
+    </div>
+    <div class="col-md-6">
+        <strong>تاریخ سفارش:</strong> {% jalali_date order.created %}
+    </div>
+    <div class="col-md-6">
+        <strong>نام گیرنده:</strong> {{order.recipient_name}}
+    </div>
+    <div class="col-md-6">
+        <strong>شماره تماس گیرنده:</strong> {{order.recipient_phone_number}}
+    </div>
+    <div class="col-md-12">
+        <strong>آدرس گیرنده:</strong> {{order.recipient_address}}
+    </div>
+    <br><br>
+    <div class="col-md-4">
+        <strong>مبلغ کل:</strong> {{total_price|intcomma:False}} تومان
+    </div>
+    <div class="col-md-4">
+        <strong>مبلغ پرداختی:</strong> {{total_cost|intcomma:False}} تومان
+    </div>
+    <div class="col-md-4">
+        <strong>مقدار تخفیف:</strong> {{total_discount|intcomma:False}} تومان
+    </div>
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table m-t-b-50">
+                <thead>
+                    <tr class="bg-dark text-white text-center">
+                        <th>#</th>
+                        <th>تصویر محصول</th>
+                        <th>نام محصول</th>
+                        <th>قیمت واحد</th>
+                        <th>تعداد</th>
+                        <th>قیمت کل</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order.items.all %}
+                    <tr class="text-center">
+                        <td>{{forloop.counter}}</td>
+                        <td>
+                            <a href="{% url 'products:products_detail' item.product.slug %}" target="_blank">
+                                <img src="{{item.product.image.url}}" width="100px">
+                            </a>
+                        </td>
+                        <td>{{item.product.name}}</td>
+                        <td>{{item.price|intcomma:False}} تومان</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.get_item_cost|intcomma:False}} تومان</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

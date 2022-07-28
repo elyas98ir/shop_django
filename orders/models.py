@@ -20,7 +20,7 @@ class Order(models.Model):
     def __str__(self):
         return f'order - {self.user}'
 
-    def get_total_cost(self, without_discount):
+    def get_total_cost(self, without_discount=False):
         total = sum(item.get_item_cost() for item in self.items.all())
         total_with_discount = total
 

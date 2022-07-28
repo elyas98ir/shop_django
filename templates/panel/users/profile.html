@@ -1,0 +1,34 @@
+{% extends 'panel/base.html' %}
+{% load widget_tweaks %}
+
+{% block panel_title %} ویرایش پروفایل {% endblock %}
+{% block panel_content %}
+
+{% include 'panel/inc/messages.html' %}
+
+<div class="col-6">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>نام</label>
+            {% render_field form.first_name class="form-control" placeholder="نام" %}
+        </div>
+        <div class="form-group">
+            <label>نام خانوادگی</label>
+            {% render_field form.last_name class="form-control" placeholder="نام خانوادگی" %}
+        </div>
+        <div class="form-group">
+            <label>ایمیل</label>
+            {% render_field form.email class="form-control" placeholder="ایمیل" %}
+        </div>
+        <div class="form-group">
+            <label>تصویر پروفایل</label>
+            {% render_field form.image class="form-control" placeholder="تصویر پروفایل" %}
+        </div>
+        <br>
+        <input type="submit" value="ویرایش اطلاعات" class="btn btn-primary">
+    </form>
+</div>
+
+{% endblock %}
+

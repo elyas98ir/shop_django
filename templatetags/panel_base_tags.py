@@ -1,6 +1,6 @@
 from django import template
-# from extensions.utils import jalali_converter
-# from django.utils import timezone
+from extensions.utils import jalali_converter
+from django.utils import timezone
 
 
 register = template.Library()
@@ -35,8 +35,8 @@ def nav_active(request, url_names):
     }
 
 
-# @register.inclusion_tag('panel/partials/jalali_date.html')
-# def jalali_date(date):
-#     return {
-#         'date': jalali_converter(timezone.make_aware(date)),
-#     }
+@register.inclusion_tag('panel/partials/jalali_date.html')
+def jalali_date(date):
+    return {
+        'date': jalali_converter(date),
+    }

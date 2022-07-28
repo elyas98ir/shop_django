@@ -1,3 +1,19 @@
+function showToast(type, message, duration = 3000) {
+	$(window).on('load', function () {
+		setTimeout(() => {
+			toastr.options = {
+				timeOut: duration,
+				progressBar: true,
+				showMethod: "slideDown",
+				hideMethod: "slideUp",
+				showDuration: 200,
+				hideDuration: 200
+			};
+			toastr[type](message);
+		}, 500);
+	});
+}
+
 'use strict';
 
 (function ($) {
@@ -25,20 +41,8 @@
 
 	/*------------- page loader -------------*/
 	wind_.on('load', function () {
-		$('.page-loader').fadeOut(700, function () {
-			setTimeout(function () {
-				toastr.options = {
-					timeOut: 3000,
-					progressBar: true,
-					showMethod: "slideDown",
-					hideMethod: "slideUp",
-					showDuration: 200,
-					hideDuration: 200
-				};
-				toastr.success('خوش آمدید! جان اسنو.');
-			}, 1000);
+		$('.page-loader').fadeOut(500, function () {
 		});
-
 	});
 	/*------------- page loader -------------*/
 
@@ -332,13 +336,13 @@
 
 		} else {
 			if (wind_.width() >= 768) {
-				$('.card-scroll').niceScroll({railalign: 'left'});
-				$('.table-responsive').niceScroll({railalign: 'left'});
+				$('.card-scroll').niceScroll({ railalign: 'left' });
+				$('.table-responsive').niceScroll({ railalign: 'left' });
 			}
 
 			if (wind_.width() >= 992) {
 				wind_.on('load', function () {
-					$('.navigation>.navigation-menu-body>ul').niceScroll({railalign: 'left'});
+					$('.navigation>.navigation-menu-body>ul').niceScroll({ railalign: 'left' });
 				});
 			}
 
@@ -347,7 +351,7 @@
 					var $this = $(this),
 						scroll_div = $this.find('.card-scroll');
 					if (scroll_div.length) {
-						scroll_div.niceScroll({railalign: 'left'});
+						scroll_div.niceScroll({ railalign: 'left' });
 					}
 				}
 			});
@@ -355,20 +359,20 @@
 			$('.sidebar').each(function () {
 				if (wind_.width() >= 768) {
 					var $this = $(this);
-					$this.niceScroll({railalign: 'left'});
+					$this.niceScroll({ railalign: 'left' });
 				}
 			});
 
 			$('.dropdown-menu').each(function () {
 				if (typeof $('.dropdown-menu-body', this)[0] != 'undefined' && wind_.width() >= 768) {
-					$('.dropdown-menu-body', this).niceScroll({railalign: 'left'});
+					$('.dropdown-menu-body', this).niceScroll({ railalign: 'left' });
 				}
 			});
 
 			if (wind_.width() >= 768) {
-				$('.chat-app .chat-sidebar .chat-sidebar-messages')[0] ? $('.chat-app .chat-sidebar .chat-sidebar-messages').scrollTop($('.chat-app .chat-sidebar .chat-sidebar-messages').get(0).scrollHeight, -1).niceScroll({railalign: 'left'}) : '';
+				$('.chat-app .chat-sidebar .chat-sidebar-messages')[0] ? $('.chat-app .chat-sidebar .chat-sidebar-messages').scrollTop($('.chat-app .chat-sidebar .chat-sidebar-messages').get(0).scrollHeight, -1).niceScroll({ railalign: 'left' }) : '';
 
-				$('.chat-app .chat-body .chat-body-messages')[0] ? $('.chat-app .chat-body .chat-body-messages').scrollTop($('.chat-app .chat-body .chat-body-messages').get(0).scrollHeight, -1).niceScroll({railalign: 'left'}) : '';
+				$('.chat-app .chat-body .chat-body-messages')[0] ? $('.chat-app .chat-body .chat-body-messages').scrollTop($('.chat-app .chat-body .chat-body-messages').get(0).scrollHeight, -1).niceScroll({ railalign: 'left' }) : '';
 			}
 		}
 	}

@@ -4,9 +4,9 @@
 <div class="navigation">
     <div class="navigation-icon-menu">
         <ul>
-            {% nav_menu request 'dashboard' '#navigationDashboard' 'داشبورد' 'ti-pie-chart' %}
-            {% nav_menu request 'articles_list,articles_create,articles_update,articles_delete' '#navigationArticles' 'مدیریت مقالات' 'ti-align-right' %}
-            {% nav_menu request 'profile_edit,password_change' '#navigationProfile' 'پروفایل کاربری' 'ti-user' %}
+            {% nav_menu request 'home' '#navigationDashboard' 'داشبورد' 'ti-pie-chart' %}
+            {% nav_menu request 'order_list,order_detail,payments' '#navigationOrders' 'مدیریت سفارشات' 'ti-align-right' %}
+            {% nav_menu request 'profile' '#navigationProfile' 'پروفایل کاربری' 'ti-user' %}
         </ul>
         <ul>
             <li data-toggle="tooltip" title="نمایش سایت">
@@ -15,8 +15,7 @@
                 </a>
             </li>
             <li data-toggle="tooltip" title="خروج">
-                <a href="#" class="go-to-page">
-                {% comment %} <a href="{% url 'panel:logout' %}" class="go-to-page"> {% endcomment %}
+                <a href="{% url 'accounts:logout' %}" class="go-to-page">
                     <i class="icon ti-power-off"></i>
                 </a>
             </li>
@@ -27,10 +26,14 @@
             <li class="navigation-divider">صفحه اصلی</li>
             {% nav_item request 'home' 'داشبورد' %}
         </ul>
-        {% comment %} <ul id="navigationArticles" class="{% nav_active request 'articles_list,articles_create,articles_update,articles_delete' %}">
-            <li class="navigation-divider">مدیریت مقالات</li>
-            {% nav_item request 'articles_list' 'لیست مقالات' %}
-            {% nav_item request 'articles_create' 'افزدون مقاله جدید' %}
-        </ul> {% endcomment %}
+        <ul id="navigationOrders" class="{% nav_active request 'order_list,order_detail,payments' %}">
+            <li class="navigation-divider">مدیریت سفارشات</li>
+            {% nav_item request 'order_list' 'لیست سفارشات' %}
+            {% nav_item request 'payments' 'لیست پرداختی‌ها' %}
+        </ul>
+        <ul id="navigationProfile" class="{% nav_active request 'profile' %}">
+            <li class="navigation-divider">مدیریت حساب</li>
+            {% nav_item request 'profile' 'ویرایش پروفایل' %}
+        </ul>
     </div>
 </div>
