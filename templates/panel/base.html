@@ -1,0 +1,135 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>پنل مدیریت نویسندگان</title>
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="{% static 'panel/assets/media/image/favicon.png' %}">
+	<!-- Theme Color -->
+	<meta name="theme-color" content="#5867dd">
+	<!-- Plugin styles -->
+	<link rel="stylesheet" href="{% static 'panel/vendors/bundle.css' %}" type="text/css">
+	<!-- Datepicker -->
+	<link rel="stylesheet" href="{% static 'panel/vendors/datepicker/daterangepicker.css' %}">
+	<!-- Slick -->
+	<link rel="stylesheet" href="{% static 'panel/vendors/slick/slick.css' %}">
+	<link rel="stylesheet" href="{% static 'panel/vendors/slick/slick-theme.css' %}">
+	<!-- Vmap -->
+	<link rel="stylesheet" href="{% static 'panel/vendors/vmap/jqvmap.min.css' %}">
+	<!-- App styles -->
+	<link rel="stylesheet" href="{% static 'panel/assets/css/app.css' %}" type="text/css">
+	<!-- DataTable -->
+	<link rel="stylesheet" href="{% static 'panel/vendors/dataTable/responsive.bootstrap.min.css' %}" type="text/css">
+	<!-- Select2 -->
+	<link rel="stylesheet" href="{% static 'panel/vendors/select2/css/select2.min.css' %}" type="text/css">
+	{% block custom_css %}{% endblock %}
+</head>
+
+<body>
+
+	<!-- begin::page loader-->
+	<div class="page-loader">
+		<div class="spinner-border"></div>
+	</div>
+	<!-- end::page loader -->
+
+	<!-- begin::navigation -->
+	{% include 'panel/inc/navigation.html' %}
+	<!-- end::navigation -->
+
+	<!-- begin::header -->
+	<div class="header">
+		<!-- begin::header logo -->
+		<div class="header-logo">
+			<a href="{% url 'panel:home' %}">
+				<img class="large-logo" src="{% static 'panel/assets/media/image/logo.png' %}" alt="image">
+				<img class="small-logo" src="{% static 'panel/assets/media/image/logo-sm.png' %}" alt="image">
+				<img class="dark-logo" src="{% static 'panel/assets/media/image/logo-dark.png' %}" alt="image">
+			</a>
+		</div>
+		<!-- end::header logo -->
+		<!-- begin::header body -->
+		<div class="header-body">
+			<div class="header-body-left">
+				<h3 class="page-title" style="color:#70759f;">«پنل مدیریت نویسندگان»</h3>
+			</div>
+		</div>
+		<!-- end::header body -->
+	</div>
+	<!-- end::header -->
+
+	<!-- begin::main content -->
+	<main class="main-content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">
+							{% block title %}{% endblock %}
+						</h4>
+						<div class="my-content">
+							{% block content %}{% endblock %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<!-- end::main content -->
+
+	<!-- Plugin scripts -->
+	<script src="{% static 'panel/vendors/bundle.js' %}"></script>
+	<!-- Chartjs -->
+	<script src="{% static 'panel/vendors/charts/chartjs/chart.min.js' %}"></script>
+	<!-- Circle progress -->
+	<script src="{% static 'panel/vendors/circle-progress/circle-progress.min.js' %}"></script>
+	<!-- Peity -->
+	<script src="{% static 'panel/vendors/charts/peity/jquery.peity.min.js' %}"></script>
+	<script src="{% static 'panel/assets/js/examples/charts/peity.js' %}"></script>
+	<!-- Datepicker -->
+	<script src="{% static 'panel/vendors/datepicker/daterangepicker.js' %}"></script>
+	<!-- Slick -->
+	<script src="{% static 'panel/vendors/slick/slick.min.j' %}s"></script>
+	<!-- Vamp -->
+	<script src="{% static 'panel/vendors/vmap/jquery.vmap.min.js' %}"></script>
+	<script src="{% static 'panel/vendors/vmap/maps/jquery.vmap.usa.js' %}"></script>
+	<script src="{% static 'panel/assets/js/examples/vmap.js' %}"></script>
+	<!-- Dashboard scripts -->
+	<script src="{% static 'panel/assets/js/examples/dashboard.js' %}"></script>
+	<div class="colors">
+		<!-- To use theme colors with Javascript -->
+		<div class="bg-primary"></div>
+		<div class="bg-primary-bright"></div>
+		<div class="bg-secondary"></div>
+		<div class="bg-secondary-bright"></div>
+		<div class="bg-info"></div>
+		<div class="bg-info-bright"></div>
+		<div class="bg-success"></div>
+		<div class="bg-success-bright"></div>
+		<div class="bg-danger"></div>
+		<div class="bg-danger-bright"></div>
+		<div class="bg-warning"></div>
+		<div class="bg-warning-bright"></div>
+	</div>
+	<!-- DataTable -->
+	<script src="{% static 'panel/vendors/dataTable/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'panel/vendors/dataTable/dataTables.bootstrap4.min.js' %}"></script>
+	<script src="{% static 'panel/vendors/dataTable/dataTables.responsive.min.js' %}"></script>
+	<script src="{% static 'panel/assets/js/examples/datatable.js' %}"></script>
+	<!-- Select2 -->
+	<script src="{% static 'panel/vendors/select2/js/select2.min.js' %}"></script>
+	<script src="{% static 'panel/assets/js/examples/select2.js' %}"></script>
+	<!-- CKEditor -->
+	<script src="{% static 'panel/vendors/ckeditor/ckeditor.js' %}"></script>
+	<script src="{% static 'panel/assets/js/examples/ckeditor.js' %}"></script>
+	<!-- App scripts -->
+	<script src="{% static 'panel/assets/js/app.js' %}"></script>
+	{% block custom_js %}{% endblock %}
+</body>
+
+</html>

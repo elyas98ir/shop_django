@@ -1,0 +1,6 @@
+<li>
+    <a href="{% url go_to %}"
+    class="{% if request.resolver_match.url_name == url_name %}active{% endif %}">
+        {{text}}
+    </a>
+</li>

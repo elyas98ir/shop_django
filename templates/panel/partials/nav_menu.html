@@ -1,0 +1,9 @@
+<li data-toggle="tooltip" title="{{ text }}" class="
+    {% if request.resolver_match.url_name in url_names %}
+        active
+    {% endif %}
+    ">
+    <a href="{{ href }}" title="{{ text }}">
+        <i class="icon {{ icon }}"></i>
+    </a>
+</li>

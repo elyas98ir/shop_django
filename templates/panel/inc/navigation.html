@@ -1,0 +1,36 @@
+{% load static %}
+{% load panel_base_tags %}
+
+<div class="navigation">
+    <div class="navigation-icon-menu">
+        <ul>
+            {% nav_menu request 'dashboard' '#navigationDashboard' 'داشبورد' 'ti-pie-chart' %}
+            {% nav_menu request 'articles_list,articles_create,articles_update,articles_delete' '#navigationArticles' 'مدیریت مقالات' 'ti-align-right' %}
+            {% nav_menu request 'profile_edit,password_change' '#navigationProfile' 'پروفایل کاربری' 'ti-user' %}
+        </ul>
+        <ul>
+            <li data-toggle="tooltip" title="نمایش سایت">
+                <a href="{% url 'home' %}" target="_blank" class="go-to-page">
+                    <i class="icon ti-world"></i>
+                </a>
+            </li>
+            <li data-toggle="tooltip" title="خروج">
+                <a href="#" class="go-to-page">
+                {% comment %} <a href="{% url 'panel:logout' %}" class="go-to-page"> {% endcomment %}
+                    <i class="icon ti-power-off"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="navigation-menu-body">
+        <ul id="navigationDashboard" class="{% nav_active request 'home' %}">
+            <li class="navigation-divider">صفحه اصلی</li>
+            {% nav_item request 'home' 'داشبورد' %}
+        </ul>
+        {% comment %} <ul id="navigationArticles" class="{% nav_active request 'articles_list,articles_create,articles_update,articles_delete' %}">
+            <li class="navigation-divider">مدیریت مقالات</li>
+            {% nav_item request 'articles_list' 'لیست مقالات' %}
+            {% nav_item request 'articles_create' 'افزدون مقاله جدید' %}
+        </ul> {% endcomment %}
+    </div>
+</div>
